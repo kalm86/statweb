@@ -4,3 +4,6 @@ plotly==6.0.1
 openpyxl==3.1.5
 requests==2.32.3
 sql==2022.4.0
+dash==2.18.2
+gunicorn
+dash-tools
