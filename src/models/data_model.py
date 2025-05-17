@@ -1,18 +1,8 @@
 import pandas as pd
 import sqlite3
 
-def load_data():
-    return pd.DataFrame({
-        "Fecha": pd.date_range(start="2024-01-01", periods=6, freq="M"),
-        "Ventas": [150, 200, 250, 220, 300, 280],
-        "Categoría": ["A", "B", "A", "C", "B", "A"],
-        "Valor": [100, 200, 150, 300, 250, 180],
-        "Latitud": [4.711, 6.252, 10.391, 7.125, 3.437, 11.004],
-        "Longitud": [-74.072, -75.574, -75.479, -73.119, -76.522, -74.807]
-    })
-
 def loadCodigoMuerte():
-    dfCodigoMuerte = pd.read_excel("data/CodigosMuerte.xlsx", sheet_name="Final")
+    dfCodigoMuerte = pd.read_excel("src/data/CodigosMuerte.xlsx", sheet_name="Final")
     dfCodigoMuerte = dfCodigoMuerte.rename(
                                             columns={
                                                 "Capítulo" : "Capitulo",
@@ -26,7 +16,7 @@ def loadCodigoMuerte():
     return dfCodigoMuerte
 
 def loadDivipola():
-    dfDivipola = pd.read_excel("data/Divipola.xlsx", sheet_name="Hoja1")
+    dfDivipola = pd.read_excel("src/data/Divipola.xlsx", sheet_name="Hoja1")
     dfDivipola = dfDivipola.rename(
                                         columns={
                                             "COD_DANE" : "CodigoDane",
@@ -40,7 +30,7 @@ def loadDivipola():
     return dfDivipola
 
 def loadNoFetal():
-    dfNoFetal = pd.read_excel("data/NoFetal.xlsx", sheet_name="No_Fetales_2019")
+    dfNoFetal = pd.read_excel("src/data/NoFetal.xlsx", sheet_name="No_Fetales_2019")
     dfNoFetal = dfNoFetal.rename(
                                         columns={
                                             "COD_DANE" : "CodigoDane",
@@ -65,7 +55,7 @@ def loadNoFetal():
     return dfNoFetal
 
 def Conectar():
-    oConexion = sqlite3.connect("estadisticas_muerte.db")
+    oConexion = sqlite3.connect("src/data/estadisticas_muerte.db")
     return oConexion
 
 def Desconectar(oConexion):
@@ -78,7 +68,7 @@ def creaDataWarehouse(df, table_name):
 
 def ConsultaDatos(cCampos, cTabla, cFiltro, cAgrupacion):
     # Conectar a la base de datos del Data Warehouse
-    oConexion = sqlite3.connect("estadisticas_muerte.db")
+    oConexion = Conectar()
     qCursor = oConexion.cursor()
 
     # Realizar una consulta de ejemplo: Obtener datos de calidad del agua
