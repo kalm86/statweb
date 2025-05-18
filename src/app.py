@@ -8,6 +8,7 @@ ProcesaDatawarehouse()
 
 
 app = Flask(__name__)
+server = app.server
 
 @app.route('/')
 def index():
@@ -49,4 +50,4 @@ def bar_api():
     return render_template('index.html', plot_div=plot_div)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run_server(debug=True)
